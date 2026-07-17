@@ -1,0 +1,60 @@
+export default {
+  projects: [
+    {
+      displayName: 'api',
+      testEnvironment: 'node',
+      testMatch: ['**/__tests__/**/*.test.js'],
+      testPathIgnorePatterns: ['\\.test\\.jsx$'],
+      testTimeout: 10000,
+      setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
+      moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1',
+      },
+      transform: {
+        '^.+\\.(js|jsx|ts|tsx)$': ['@swc/jest', {
+          jsc: {
+            parser: {
+              syntax: 'ecmascript',
+              jsx: true,
+            },
+            transform: {
+              react: {
+                runtime: 'automatic',
+              },
+            },
+          },
+        }],
+      },
+      transformIgnorePatterns: [
+        'node_modules/(?!(@langchain|p-retry|is-network-error|langchain|uuid|next-auth|@auth|oauth4webapi)/)',
+      ],
+    },
+    {
+      displayName: 'components',
+      testEnvironment: 'jsdom',
+      testMatch: ['**/__tests__/**/*.test.jsx'],
+      testTimeout: 10000,
+      setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
+      moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1',
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+      },
+      transform: {
+        '^.+\\.(js|jsx|ts|tsx)$': ['@swc/jest', {
+          jsc: {
+            parser: {
+              syntax: 'ecmascript',
+              jsx: true,
+            },
+            transform: {
+              react: {
+                runtime: 'automatic',
+              },
+            },
+          },
+        }],
+      },
+      transformIgnorePatterns: ['node_modules/(?!(?:@lottiefiles|next-auth|@auth|oauth4webapi)/)'],
+    },
+  ],
+};
