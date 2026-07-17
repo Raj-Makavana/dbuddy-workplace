@@ -332,7 +332,7 @@ export default function Query({ initialQuery, onQueryMounted }) {
                             <button
                               key={ex}
                               type="button"
-                              className="animate-scale-in pill-badge pill-badge-primary hover:bg-primary/20 hover:cursor-pointer transition-all duration-200 text-left"
+                              className="animate-scale-in pill-badge pill-badge-primary hover:bg-primary/20 hover:cursor-pointer transition-all duration-200 text-left active-shrink"
                               onClick={() => setQuery(ex)}
                             >
                                 <Sparkles className="w-3 h-3 flex-shrink-0"/>
@@ -341,7 +341,7 @@ export default function Query({ initialQuery, onQueryMounted }) {
                           )): null }
                         </div>
                         <div className="runbtn flex flex-col justify-end">
-                         <Button className="max-[510]:w-full hover:cursor-pointer btn-glow shadow-md" onClick={()=>{
+                         <Button className="max-[510]:w-full hover:cursor-pointer btn-glow shadow-md active-shrink" onClick={()=>{
                           runquery();
                          }} disabled={loading}>
                            { loading? <DotLottieReact
@@ -414,8 +414,8 @@ export default function Query({ initialQuery, onQueryMounted }) {
                           </div>
                         ) : !queryResult ? <div className="text-center mt-16 text-gray-500">
                        
-                        <div className="text-lg font-medium flex justify-center items-center flex-col">
-                             <Sparkles  className="w-10 h-10 text-gray-500"/>
+                        <div className="text-lg font-medium flex justify-center items-center flex-col animate-fade-in-up">
+                             <Sparkles  className="w-10 h-10 text-gray-500 mb-3"/>
                           Ask anything about your data<br />
                           <span className="text-base text-gray-400">
                             Use natural language to query your database. No SQL knowledge required.
@@ -423,7 +423,7 @@ export default function Query({ initialQuery, onQueryMounted }) {
                         </div>
                       </div> : 
                       <>
-                        <div className="mx-10 mt-6 flex items-center justify-between">
+                        <div className="mx-10 mt-6 flex items-center justify-between relative z-20">
                           <div className="flex items-center gap-2 mb-2">
                             <Sparkles className="w-5 h-5 text-blue-500"/>
                             <h3 className="font-medium text-gray-700">Your Query:</h3>
@@ -439,9 +439,9 @@ export default function Query({ initialQuery, onQueryMounted }) {
                           <p className="text-gray-600 pl-7">{displayquery}</p>
                         </div>
                         <hr />
-                       <div className="w-full overflow-x-auto max-w-full overflow-y-auto h-full animate-slide-in-up">
+                       <div className="w-full overflow-x-auto max-w-full overflow-y-auto h-full animate-slide-in-up relative z-10">
 
-                                <table className="min-w-max w-full table-auto">
+                                <table className="min-w-max w-full premium-table">
                                     <thead className="tb_head">
                                         <tr>
                                   
@@ -499,7 +499,11 @@ export default function Query({ initialQuery, onQueryMounted }) {
                         </div>
                       </div>
                     ) : (
-                      <div className="mx-10 mt-[16px] text-center text-gray-500">Loading suggestions...</div>
+                      <div className="mx-10 mt-[16px] flex flex-wrap gap-2 stagger-children">
+                        {[1, 2, 3, 4].map(n => (
+                          <div key={n} className="skeleton h-8 w-32 rounded-full" />
+                        ))}
+                      </div>
                     )}
     </>
    

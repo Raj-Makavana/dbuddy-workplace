@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { pool, createUserDatabase, getDatabaseSchema } from '@/lib/db';
+import { pool, createUserDatabase, getDatabaseTableCount } from '@/lib/db';
 import { withAuth } from '@/lib/api-helpers';
 
 // Get all projects for authenticated user
@@ -25,8 +25,7 @@ export const GET = withAuth(async (_request, _context, user) => {
         result.rows.map(async (project) => {
             try {
                 // Now project.connection_string will be defined
-                const schemaInfo = await getDatabaseSchema(project.connection_string);
-                const tableCount = schemaInfo.length;
+                const tableCount = await getDatabaseTableCount(project.connection_string);
                 return {
                     ...project,
                     table_count: tableCount,

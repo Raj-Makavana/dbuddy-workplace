@@ -16,10 +16,9 @@ export default function DashboardPage() {
   const params = useParams();
   const projectid = params.slug;
 
-  const [projects, setProjects] = useState([]);
   const [projectdetail, setprojectdetail] = useState({});
   const [page, setpage] = useState("table");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
   const [queryToPass, setQueryToPass] = useState(null);
 
@@ -28,29 +27,27 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
-    const fetchProjectsData = async () => {
+    const fetchProjectDetail = async () => {
       try {
-        const res = await fetch("/api/projects", { cache: "no-store" });
-        if (!res.ok) return setProjects([]);
+        setLoading(true);
+        const res = await fetch(`/api/projects/${projectid}`, { cache: "no-store" });
+        if (!res.ok) return;
 
         const data = await res.json();
-        setProjects(data.projects || []);
-      } catch {
-        setProjects([]);
+        if (data.project) {
+          setprojectdetail(data.project);
+        }
+      } catch (err) {
+        console.error("Error fetching project detail:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProjectsData();
-  }, []);
-
-  useEffect(() => {
-    if (projects.length > 0) {
-      const proj = projects.find((p) => String(p.id) === String(projectid));
-      if (proj) setprojectdetail(proj);
+    if (projectid) {
+      fetchProjectDetail();
     }
-  }, [projects, projectid]);
+  }, [projectid]);
 
   return (
     <div className="min-h-screen flex flex-col dashboard-bg">
@@ -72,18 +69,27 @@ export default function DashboardPage() {
           </div>
 
           <div className="details flex flex-col justify-center">
-            <span className="text-base md:text-lg font-extrabold text-gradient leading-snug">
-              {projectdetail.project_name}
-            </span>
-            <span className="text-muted-foreground text-xs md:text-sm line-clamp-1 leading-normal">
-              {projectdetail.description || "No description provided."}
-            </span>
-            <span className="text-xxs font-bold text-secondary uppercase tracking-wider mt-0.5">
-              <span className="inline-flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
-                {projectdetail.table_count || 0} Tables · Connected
-              </span>
-            </span>
+            {loading ? (
+              <div className="space-y-2">
+                <div className="skeleton h-5 w-40 rounded" />
+                <div className="skeleton h-3.5 w-64 rounded" />
+              </div>
+            ) : (
+              <>
+                <span className="text-base md:text-lg font-extrabold text-gradient leading-snug">
+                  {projectdetail.project_name}
+                </span>
+                <span className="text-muted-foreground text-xs md:text-sm line-clamp-1 leading-normal">
+                  {projectdetail.description || "No description provided."}
+                </span>
+                <span className="text-xxs font-bold text-secondary uppercase tracking-wider mt-0.5">
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                    {projectdetail.table_count || 0} Tables · Connected
+                  </span>
+                </span>
+              </>
+            )}
           </div>
 
           <div className="ml-auto flex items-center gap-2">
@@ -91,6 +97,7 @@ export default function DashboardPage() {
               onClick={() => setShowSummary(true)} 
               className="h-9 px-4 btn-glow text-white rounded-xl shadow-lg transition-all duration-200 cursor-pointer"
               style={{background: 'linear-gradient(135deg, #133E87 0%, #608BC1 100%)'}}
+              disabled={loading}
             >
               <Sparkles className="w-4 h-4 mr-1.5" />
               AI Summary

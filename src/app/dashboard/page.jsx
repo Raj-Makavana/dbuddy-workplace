@@ -250,13 +250,15 @@ export default function DashboardPage() {
                     </div>
 
                     {loading ? (
-                        <Card className="text-center py-12">
-                            <CardContent>Loading projects...</CardContent>
-                        </Card>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+                            {[1, 2, 3].map((i) => (
+                                <div key={i} className="skeleton h-48 w-full border border-border/10 rounded-2xl" />
+                            ))}
+                        </div>
                     ) : projects.length === 0 ? (
-                        <Card className="text-center py-12">
+                        <Card className="text-center py-12 glass-card">
                             <CardContent className="space-y-4">
-                                <Database className="w-16 h-16 text-muted-foreground mx-auto" />
+                                <Database className="w-16 h-16 text-muted-foreground mx-auto animate-pulse" />
                                 <div>
                                     <h3 className="text-lg font-medium text-foreground">
                                         No projects yet
@@ -279,7 +281,7 @@ export default function DashboardPage() {
 
                             if (filteredProjects.length === 0) {
                                 return (
-                                    <Card className="text-center py-12">
+                                    <Card className="text-center py-12 glass-card animate-scale-in">
                                         <CardContent className="space-y-4">
                                             <div>
                                                 <h3 className="text-lg font-medium text-foreground">No projects match your search</h3>
@@ -291,7 +293,7 @@ export default function DashboardPage() {
                             }
 
                             return (
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                                     {filteredProjects.map((project) => {
                                         const normalizedProject = {
                                             id: project.id,
@@ -309,13 +311,14 @@ export default function DashboardPage() {
                                         };
 
                                         return (
-                                            <ProjectCard
-                                                key={project.id}
-                                                project={normalizedProject}
-                                                onDeleted={(deletedId) =>
-                                                    setProjects((prev) => prev.filter((p) => p.id !== deletedId))
-                                                }
-                                            />
+                                            <div key={project.id} className="animate-scale-in">
+                                                <ProjectCard
+                                                    project={normalizedProject}
+                                                    onDeleted={(deletedId) =>
+                                                        setProjects((prev) => prev.filter((p) => p.id !== deletedId))
+                                                    }
+                                                />
+                                            </div>
                                         );
                                     })}
                                 </div>

@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 // Verify that the user owns the project
 export async function verifyProjectOwnership(projectId, userId) {
     const result = await pool.query(`
-        SELECT id, connection_string, database_name, project_name
+        SELECT id, connection_string, database_name, project_name, description
         FROM user_projects 
         WHERE id = $1 AND user_id = $2 AND is_active = true
     `, [projectId, userId]);

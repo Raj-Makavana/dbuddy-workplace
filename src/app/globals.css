@@ -487,6 +487,19 @@
 
 /* ─── Table row highlight on edit ─────────────────────── */
 .row-editing {
-    background: rgba(96,139,193,0.08) !important;
-    outline: 1.5px solid rgba(19,62,135,0.2);
-}
+    background: rgba(96, 139, 193, 0.08) !important;
+    outline: 1.5px solid rgba(19, 62, 135, 0.2);
+}
+
+/* ─── Micro-interactions & Focus ───────────────────────── */
+.active-shrink {
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.active-shrink:active {
+    transform: scale(0.96) !important;
+}
+
+.premium-focus:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(19, 62, 135, 0.12) !important;
+}

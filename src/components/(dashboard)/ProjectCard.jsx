@@ -224,7 +224,7 @@ export function ProjectCard({ project, onDeleted }) {
                         >
                             <Button
                                 size="sm"
-                                className="w-full cursor-pointer"
+                                className="w-full cursor-pointer active-shrink"
                                 disabled={project.database.status !== 'connected'}
                             >
                                 <ExternalLink className="w-4 h-4 mr-1" />
@@ -233,7 +233,7 @@ export function ProjectCard({ project, onDeleted }) {
                         </Link>
                         <div className="relative" ref={menuRef}>
                             <Button
-                                className="cursor-pointer"
+                                className="cursor-pointer active-shrink"
                                 size="sm"
                                 variant="outline"
                                 disabled={project.database.status !== 'connected'}
@@ -242,16 +242,16 @@ export function ProjectCard({ project, onDeleted }) {
                                 <Settings className="w-4 h-4" />
                             </Button>
                             {menuOpen && (
-                                <div className="absolute right-0 mt-2 w-48 rounded-md border border-border bg-card shadow-lg z-20 p-1">
+                                <div className="absolute right-0 mt-2 w-48 rounded-md border border-border bg-card shadow-lg z-20 p-1 animate-slide-in-down">
                                     <button
-                                        className="w-full flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                                        className="w-full flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer active-shrink"
                                         onClick={handleEditProject}
                                     >
                                         <Pencil className="w-4 h-4 text-blue-500" />
                                         Edit Project
                                     </button>
                                     <button
-                                        className="w-full flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+                                        className="w-full flex items-center gap-2 rounded-sm px-3 py-2 text-sm text-left hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer active-shrink"
                                         onClick={() => {
                                             setConfirmOpen(true);
                                             setMenuOpen(false);

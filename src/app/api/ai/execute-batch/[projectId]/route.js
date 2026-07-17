@@ -40,6 +40,11 @@ export const POST = withRateLimit(
             const detectedQueryType = operation.type || detectQueryType(operation.sql);
 
             try {
+                // Check if query has un-parameterized placeholders like $1, $2
+                if (/\$\d+/.test(operation.sql)) {
+                    throw new Error("This SQL statement contains template placeholders (like $1 or $2) instead of actual values. Please rewrite the query to replace them with real values (e.g. replace $1 with 'user_id_here' inside single quotes) and try again.");
+                }
+
                 const result = await executeQuery(project.connection_string, operation.sql);
                 const executionTime = opTimer.elapsed();
                 totalExecutionTime += executionTime;

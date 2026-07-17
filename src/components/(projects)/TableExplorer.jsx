@@ -632,7 +632,7 @@ export default function TableExplorer({ projectId }) {
         </div>
       </Modal>
 
-      <div className="table_select gradient-toolbar h-16 flex items-center px-5 gap-3 animate-slide-in-down">
+      <div className="table_select gradient-toolbar h-16 flex items-center px-5 gap-3 animate-slide-in-down relative z-30">
         <span className="section-header">Table Explorer</span>
         <Dropdown
           items={tablelist}
@@ -647,7 +647,7 @@ export default function TableExplorer({ projectId }) {
         />
       </div>
 
-      <div className="mockbutton gap-3 gradient-toolbar items-center flex-col max-[830]:h-auto min-[830]:flex-row min-[830]:h-16 flex px-5 py-3 justify-between animate-slide-in-down border-b border-border/10">
+      <div className="mockbutton gap-3 gradient-toolbar items-center flex-col max-[830]:h-auto min-[830]:flex-row min-[830]:h-16 flex px-5 py-3 justify-between animate-slide-in-down border-b border-border/10 relative z-20">
         <div className="frontbtn flex flex-row gap-2 max-[830]:flex-col max-[830]:w-full max-[830]:gap-2">
           <Button className="max-[510]:w-full btn-glow shadow-sm" disabled={insertLoading} onClick={async () => {
             await handleinsertrow();
@@ -731,7 +731,7 @@ export default function TableExplorer({ projectId }) {
           </div>
         ) : tableData ? (
           <>
-            <div className="w-full overflow-x-auto max-w-full overflow-y-auto h-fit p-4 animate-slide-in-up">
+            <div className="w-full overflow-x-auto max-w-full overflow-y-auto h-fit p-4 animate-slide-in-up relative z-10">
               <table className="min-w-max w-full premium-table rounded-xl overflow-hidden shadow-sm">
                 <thead className="tb_head">
                   <tr>

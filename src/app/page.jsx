@@ -40,8 +40,8 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-                        <div className="p-5 rounded-2xl glass-card transition-all duration-300">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 stagger-children">
+                        <div className="p-5 rounded-2xl glass-card transition-all duration-300 animate-scale-in">
                             <div className="p-2 w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
                                 <Sparkles className="w-5 h-5 text-primary" />
                             </div>
@@ -49,7 +49,7 @@ export default function Page() {
                             <p className="text-sm text-muted-foreground leading-relaxed">Automatically generate complete database structures from descriptions.</p>
                         </div>
 
-                        <div className="p-5 rounded-2xl glass-card transition-all duration-300">
+                        <div className="p-5 rounded-2xl glass-card transition-all duration-300 animate-scale-in">
                             <div className="p-2 w-10 h-10 bg-secondary/20 rounded-lg flex items-center justify-center mb-3">
                                 <Zap className="w-5 h-5 text-secondary-foreground" />
                             </div>
@@ -57,7 +57,7 @@ export default function Page() {
                             <p className="text-sm text-muted-foreground leading-relaxed">Instantly launch your relational database on Neon Postgres.</p>
                         </div>
 
-                        <div className="p-5 rounded-2xl glass-card transition-all duration-300 md:col-span-2">
+                        <div className="p-5 rounded-2xl glass-card transition-all duration-300 md:col-span-2 animate-scale-in">
                             <div className="flex items-start space-x-4">
                                 <div className="p-2 w-10 h-10 bg-accent/30 rounded-lg flex items-center justify-center flex-shrink-0">
                                     <Brain className="w-5 h-5 text-accent-foreground" />
@@ -89,13 +89,13 @@ export default function Page() {
                                     <TabsList className="grid w-full grid-cols-2 p-1 bg-muted/30 rounded-xl mb-6">
                                         <TabsTrigger 
                                             value="login" 
-                                            className="cursor-pointer py-2.5 rounded-lg text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                                            className="cursor-pointer py-2.5 rounded-lg text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm active-shrink"
                                         >
                                             Sign In
                                         </TabsTrigger>
                                         <TabsTrigger 
                                             value="signup" 
-                                            className="cursor-pointer py-2.5 rounded-lg text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm"
+                                            className="cursor-pointer py-2.5 rounded-lg text-sm font-medium transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm active-shrink"
                                         >
                                             Sign Up
                                         </TabsTrigger>

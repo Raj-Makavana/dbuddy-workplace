@@ -1,15 +1,17 @@
 import { NextResponse } from 'next/server';
-import { deleteUserDatabase, pool } from '@/lib/db';
+import { deleteUserDatabase, pool, getDatabaseTableCount } from '@/lib/db';
 import { withProjectAuth } from '@/lib/api-helpers';
 
 // Get specific project
 export const GET = withProjectAuth(async (_request, _context, _user, project) => {
+    const tableCount = await getDatabaseTableCount(project.connection_string);
     return NextResponse.json({ 
         project: {
             id: project.id,
             project_name: project.project_name,
             database_name: project.database_name,
-            connection_string: project.connection_string
+            description: project.description || '',
+            table_count: tableCount
         }
     });
 });

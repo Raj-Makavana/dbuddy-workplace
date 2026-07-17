@@ -297,4 +297,19 @@ export async function getDatabaseSchema(connectionString) {
     }
 }
 
+export async function getDatabaseTableCount(connectionString) {
+    try {
+        const result = await executeQuery(connectionString, `
+            SELECT COUNT(*)::int 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            AND table_type = 'BASE TABLE'
+        `);
+        return result.rows[0]?.count || 0;
+    } catch (error) {
+        console.error('Error fetching table count:', error);
+        return 0;
+    }
+}
+
 export { pool };
